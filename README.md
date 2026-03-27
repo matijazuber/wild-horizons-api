@@ -1,1 +1,1 @@
-# wild-horizons-api
+# wild-horizons
