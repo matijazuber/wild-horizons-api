@@ -9,13 +9,21 @@ const server = http.createServer(async (req, res) => {
     res.setHeader("Content-Type", "application/json");
     res.statusCode = 200;
     res.end(JSON.stringify(destination));
+  } else if (req.url.startsWith("/api/continent") && req.method === "GET") {
+    const continent = req.url.split("/").pop();
+    const filteredData = destination.filter((place) => {
+      return place.continent.toLowerCase() === continent.toLowerCase();
+    });
+    res.setHeader("Content-Type", "application/json");
+    res.statusCode = 200;
+    res.end(JSON.stringify(filteredData));
   } else {
     res.setHeader("Content-Type", "application/json");
     res.statusCode = 404;
     res.end(
       JSON.stringify({
         error: "not found",
-        message: "The requested route does not exist",
+        message: "Please specify a continent, e.g. /api/continent/Europe",
       }),
     );
   }
